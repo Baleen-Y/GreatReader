@@ -34,7 +34,9 @@
 - (void)drawLayer:(CALayer*)layer inContext:(CGContextRef)context
 {
     if (CGRectEqualToRect(self.rect, CGRectZero)) {
-        self.rect = self.bounds;
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            self.rect = self.bounds;
+        });
     }
     [self.page drawInRect:self.rect inContext:context cropping:YES];
 }
